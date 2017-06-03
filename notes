@@ -1,4 +1,4 @@
-* Central proble of phylogenomics, infer species tree based on gene trees
+* Central problem of phylogenomics, infer species tree based on gene trees
 	- such a tree = phylogenomic tree
 
 * Here, this problem, but also:
@@ -23,4 +23,80 @@
 		; detect selective pressures across genes across taxa
 	- only computationally very intensive methods available
 	- ERaBLE -> seconds
+
+* Assumptions:
+	- topological compatibility
+	- proportionality
+
+* Problem:
+	- inspired by classical weighted least squares:
+		; min_b sum(w*(y-bx)^2)
+		; both y and x to be estimated, BUT information on both (topology for x, distance for y)
+	- objective -> WLS
+		; weight is ideally proportional to inverse of variance ~ alignment length will do
+		; trivially minimized by alpha = 0, b = 0
+			` add constraint
+	- constraint -> linear over alpha
+		; right-hand side aonly determines scale of results --> rescaling
+		; incorporating sequence length -> stronger constraint on alpha for longer genes
+
+* Solution:
+	- quadratic programming (quadratic objective, linear constraints)
+	- method of Lagrange multipliers
+		; incorporate constraint in objective
+			L(a,b,l) = Q(a,b) + l(g(a))
+		; convex + linear constraints -> NS condition for optimality
+			\7L(a,b,l) = 0
+		; calculate this gradient -> can be solved for alpha, b analytically
+	- O(mn^4 + (n+m)^3) naive complexity (matrix multiplication)
+	- O(mn^2 + n^3) time complexity for efficient solution
+		; scales linearly in m! very nice property in phylogenomic context!
+	- Singularity issues when particular pairs of taxa do not co-occur in the full data set
+		; necessary but not sufficient condition 
+			` see toy example, not all pairs of taxa co-occur but unique solution
+
+* Rescaling the output:
+	- proportionality assumption: weighted average gene rates = 1
+	- force estimated alpha as such
+		; calculate c = scaling factor
+			1/N*sum(Nk/(c*alphak)) = 1
+		; rk = 1/(c*alphak)
+		; b := c*b
+	
+* Comparisons to other methods:
+	- super distance matrix (SDM)
+		; 'average' matrix summarizing signal
+		; some transformations (scale factor, scalar addition)
+		; 'average' distance matrix + topology -> OLS
+	- distR (DistR)
+		; algorithm for gene rates from distances
+		; gene rates -> 'average' distance matrix + topology -> OLS
+	- concat (+dist/+ML)
+		; conctenated alignment 
+		; ML based branch length estimation
+		; or distance matrix based: 
+			` distances from concatenated alignment + topology -> OLS
+		; rates calculated as ratio (total length gene tree)/(total length species tree)
+
+* Computational complexity:
+	- Most often used: concatenated alignment
+		; straightforward, intuitive for biologists/bioinformaticians, good results BUT 
+		; very very heavy computationally both time/memory(117 GB!)
+	- Simple optimization problem
+		; clever adaptation of WLS (adding constraint, estimate both alpha and b)
+		; reference topology often not an issue, so assume given
+		; strong but powerful assumption of proportionality
+		; clear mathematical formulation
+
+	--> Nice in bioinformatics to have background on optimization to understand
+		how methods like these work, and see how thinking out the math can lead to
+		drastic gains in computational efficiency.
+
+
+
+
+
+		
+
+		
 
