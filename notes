@@ -1,0 +1,26 @@
+* Central proble of phylogenomics, infer species tree based on gene trees
+	- such a tree = phylogenomic tree
+
+* Here, this problem, but also:
+	- infer branch lengths (#substitutions/time)
+	- gene-wise evolutionary rates (relative)
+
+* Some problems:
+	- heterogeneity in evolution of different genomic regions
+	- only partial overlap in taxa between different genomic regions
+
+* Tree main approaches:
+	- supertree
+	- superalignment
+	- medium-level
+
+* ERaBLE:
+	- a method for estimation of branch lengths for phylogenomic tree
+	  informative for:
+	  	; molecular dating (speciation/WGDs)
+		; reconciliation
+	- also gene-wise evolutionary rates (relative!)
+		; detect selective pressures across genes across taxa
+	- only computationally very intensive methods available
+	- ERaBLE -> seconds
+
