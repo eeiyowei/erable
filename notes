@@ -5,6 +5,9 @@
 	- infer branch lengths (#substitutions/time)
 	- gene-wise evolutionary rates (relative)
 
+	" How can we, given a reference topology and a large comparative genomic data set, 
+		infer branch lengths for the reference topology "
+
 * Some problems:
 	- heterogeneity in evolution of different genomic regions
 	- only partial overlap in taxa between different genomic regions
@@ -15,6 +18,7 @@
 	- medium-level
 
 * ERaBLE:
+	- medium-level (or supertree)
 	- a method for estimation of branch lengths for phylogenomic tree
 	  informative for:
 	  	; molecular dating (speciation/WGDs)
