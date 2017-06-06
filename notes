@@ -12,9 +12,12 @@
 	- heterogeneity in evolution of different genomic regions
 	- only partial overlap in taxa between different genomic regions
 
-* Tree main approaches:
+* Three main approaches:
 	- supertree
+		; unable to provide meaningful estimates for b
 	- superalignment
+		; unable to model rate heterogeneity
+		; computationally demanding
 	- medium-level
 
 * ERaBLE:
@@ -31,6 +34,8 @@
 * Assumptions:
 	- topological compatibility
 	- proportionality
+		; all gene trees the same up to a proportionality constant
+		; rate_k = b_ek/b_e
 
 * Problem:
 	- inspired by classical weighted least squares:
